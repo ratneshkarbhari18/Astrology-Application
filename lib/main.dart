@@ -6,7 +6,7 @@ Future main() async {
     debugShowCheckedModeBanner: false,
     title: 'Share Market Tips',
     theme: ThemeData( 
-      primarySwatch: Colors.indigo,
+      primarySwatch: Colors.deepOrange,
       visualDensity: VisualDensity.adaptivePlatformDensity, 
     ),
     home: Home()

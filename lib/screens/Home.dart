@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
+import './Service.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -47,6 +47,9 @@ class _HomePageState extends State<HomePage> {
     'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
   ];
 
+  List services = ["Personal Horoscope (Kundli)","Kundli Matching","Manglik Dosh","Kalsarp Dosh","Saade Saati Period","Gemstones","Graha Shanti","Remedies","Puja Recommendation", "Mantra Recommendation"];  
+
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -59,8 +62,28 @@ class _HomePageState extends State<HomePage> {
                       fit: BoxFit.cover, width: 1000))
                   .toList(),
           ),
-          Text("Ratnesh"),
-        ],
+          SizedBox(height: 15.0),
+          Text("Our Services",style: TextStyle(fontSize: 30.0,color: Colors.black)),
+          SizedBox(height: 15.0),
+          GridView.count(
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              children: List.generate(10, //this is the total number of cards
+                  (index) {
+                return Container(
+                  child: GestureDetector(
+                    onTap: (){
+                      Navigator.push(context,MaterialPageRoute(builder: (context) => Service(services[index])));
+                    },
+                    child: Card(
+                      color: Colors.deepOrange,
+                      child: Center(child: Padding(padding: const EdgeInsets.all(10.0) ,child: Text(services[index],style: TextStyle(color: Colors.white,fontSize: 17.0),textAlign: TextAlign.center)))
+                    ),
+                  ),
+                );
+              })
+          )],
       ),
     );
   }
