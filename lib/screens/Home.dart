@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import './Service.dart';
+import '../templates/AppBarTemplate.dart';
+import '../templates/DrawerTemplate.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -15,16 +17,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text("Home"),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.exit_to_app_rounded), 
-              onPressed: (){}
-            ),
-          ],
-        ),
-        drawer: Drawer(),
+        appBar: AppBarTemplate("Home"),
+        drawer: DrawerTemplate(),
         body: HomePage(),
       ),      
     );
