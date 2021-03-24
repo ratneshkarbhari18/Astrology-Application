@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-// import '../templates/AppBarTemplate.dart';
-// import '../templates/DrawerTemplate.dart';
+import '../templates/AppBarTemplate.dart';
+import '../templates/DrawerTemplate.dart';
+import '../templates/DrawerTemplateGeneral.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class Service extends StatefulWidget {
   final name;
@@ -18,13 +21,35 @@ class _ServiceState extends State<Service> {
   List fields = ["name","gender","bd","bm","by","bh","bmi","bs","bp"];
   List fieldTitles = ["Name","Gender","Birth Date","Birth Month","Birth Year","Birth Hour","Birth Minute","Birth Second","Birth Place"];
 
+  var firstName;
+  var lastName;
+  var email;
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  Future<void> _setUserState() async {
+    final SharedPreferences prefs = await _prefs;
+    setState(() {
+      firstName = prefs.getString("first_name");
+      lastName = prefs.getString("last_name");
+      email = prefs.getString("email");
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _setUserState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // drawer: DrawerTemplate(),
-      // appBar: AppBarTemplate(this.name),
-      body: ServicePage(this.name),
+    return SafeArea(
+          child: Scaffold(
+        appBar: AppBarTemplate(this.name),
+        drawer: (firstName==null)?DrawerTemplateGeneral():DrawerTemplate(firstName,lastName,email),
+        body: ServicePage(this.name),
+      ),
     );
   }
 }
@@ -45,7 +70,7 @@ List fieldTitles = ["Name","Gender","Birth Date","Birth Month","Birth Year","Bir
   @override
   Widget build(BuildContext context) {
     return Container(
-        child: Padding(
+      child: Padding(
       padding: const EdgeInsets.all(10.0),
       child: ListView(
         children: [
@@ -86,7 +111,7 @@ List fieldTitles = ["Name","Gender","Birth Date","Birth Month","Birth Year","Bir
           MaterialButton(
             height: 50.0,
             onPressed: (){},
-            color: Colors.indigo,
+            color: Colors.deepOrange,
             child: Text("Send",style: TextStyle(color: Colors.white,fontSize: 16.0)),
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           ),

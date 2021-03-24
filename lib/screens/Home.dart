@@ -3,6 +3,9 @@ import 'package:carousel_slider/carousel_slider.dart';
 import './Service.dart';
 import '../templates/AppBarTemplate.dart';
 import '../templates/DrawerTemplate.dart';
+import '../templates/DrawerTemplateGeneral.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -11,14 +14,34 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  
+  var firstName;
+  var lastName;
+  var email;
+
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+
+  Future<void> _setUserState() async {
+    final SharedPreferences prefs = await _prefs;
+    setState(() {
+      firstName = prefs.getString("first_name");
+      lastName = prefs.getString("last_name");
+      email = prefs.getString("email");
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _setUserState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBarTemplate("Home"),
-        drawer: DrawerTemplate(),
+        drawer: (firstName==null)?DrawerTemplateGeneral():DrawerTemplate(firstName,lastName,email),
         body: HomePage(),
       ),      
     );

@@ -4,7 +4,7 @@ import './screens/Home.dart';
 Future main() async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: 'Share Market Tips',
+    title: 'Astro App.',
     theme: ThemeData( 
       primarySwatch: Colors.deepOrange,
       visualDensity: VisualDensity.adaptivePlatformDensity, 

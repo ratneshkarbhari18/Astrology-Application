@@ -6,22 +6,33 @@ import '../screens/Home.dart';
 import '../screens/AskAnyQuestion.dart';
 import '../screens/Login.dart';
 
-class DrawerTemplate extends StatelessWidget {
+class DrawerTemplateGeneral extends StatelessWidget {
 
-  final firstName;
-  final lastName;
-  final email;
-
-  DrawerTemplate(this.firstName,this.lastName,this.email);
+ 
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        children: [
-          UserAccountsDrawerHeader(
-            accountName: Text("Ratnesh Karbhari"),
-            accountEmail: Text("ratneshkarbhari74@gmail.com"),
+          children: [
+            GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> Login()));
+              },
+              child: Container(
+              color: Colors.deepOrange,
+              child: DrawerHeader(
+              child: Center(
+                child: Column(
+                  children: [
+                    SizedBox(height: 35.0),
+                    Icon(Icons.account_box,size: 50.0,color: Colors.white),
+                    // Text("Login",style: TextStyle(color: Colors.white, fontSize: 20.0))
+                  ],
+                ),
+              )
+            ),
+          ),
           ),
           ListTile(
             title: Text("Todays Horoscope"),
